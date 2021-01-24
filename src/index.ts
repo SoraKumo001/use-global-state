@@ -4,6 +4,12 @@ const renderMap = new Map<string, Set<Render>>();
 const initialKyes = new Set<string>();
 const cache: { [key: string]: unknown } = {};
 
+export const reset = () => {
+  renderMap.clear();
+  initialKyes.clear();
+  Object.keys(cache).forEach((key) => delete cache[key]);
+};
+
 export const query = <T = unknown>(key: string) => cache[key] as T;
 
 export const mutate = <T = Object>(

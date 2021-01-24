@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initData 1`] = `
+NodeList [
+  <div>
+    1
+  </div>,
+  <div>
+    1
+  </div>,
+  <div>
+    1
+  </div>,
+]
+`;
+
+exports[`initData undefined 1`] = `
+NodeList [
+  <div />,
+  <div />,
+  <div />,
+]
+`;
+
+exports[`onclick 1`] = `
+NodeList [
+  <button
+    id="click"
+  >
+    3
+  </button>,
+  <div>
+    3
+  </div>,
+  3,
+]
+`;
+
+exports[`onclick 2`] = `
+NodeList [
+  <button
+    id="click"
+  >
+    4
+  </button>,
+  <div>
+    4
+  </div>,
+  4,
+]
+`;
+
+exports[`useEffect 1`] = `
+NodeList [
+  <div>
+    4
+  </div>,
+  <div>
+    4
+  </div>,
+  4,
+]
+`;
