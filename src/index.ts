@@ -17,12 +17,12 @@ export const mutate = <T = Object>(
       if (value instanceof Promise) {
         value.then((data) => {
           cache[key] = data;
-          renderMap.get(key)?.forEach((render) => setTimeout(() => render(data), 100));
+          renderMap.get(key)?.forEach((render) => render(data));
           initialKyes.add(key);
         });
       } else {
         cache[key] = data;
-        renderMap.get(key)?.forEach((render) => setTimeout(() => render(data), 100));
+        renderMap.get(key)?.forEach((render) => render(data));
         initialKyes.add(key);
       }
     }
