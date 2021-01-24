@@ -32,6 +32,21 @@ jobs:
           restore-keys: ${{ runner.OS }}-build-${{ env.cache-name }}
       - name: Lint
         run: yarn lint
+  Test:
+    name: Test
+    needs: Modules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache modules(yarn.lock)
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.OS }}-build-${{ env.cache-name }}
+      - name: Test
+        run: yarn test
   Build:
     name: Build
     needs: Modules

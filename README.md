@@ -11,6 +11,10 @@ Global `setState` that does not require `provider` or `store`
 ```tsx
 import { useGlobalState } from '@react-liblary/use-global-state';
 
+interface Props {
+  name: string;
+}
+
 export const Counter = ({ name }: Props) => {
   const [count, setCount] = useGlobalState<number>(name, 10);
   return (
