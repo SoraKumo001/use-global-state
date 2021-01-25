@@ -2,23 +2,17 @@
 
 exports[`initData 1`] = `
 NodeList [
-  <div>
-    1
-  </div>,
-  <div>
-    1
-  </div>,
-  <div>
-    1
-  </div>,
+  1,
+  1,
+  1,
 ]
 `;
 
 exports[`initData undefined 1`] = `
 NodeList [
-  <div />,
-  <div />,
-  <div />,
+  undefined,
+  undefined,
+  undefined,
 ]
 `;
 
@@ -27,12 +21,10 @@ NodeList [
   <button
     id="click"
   >
-    3
+    Efect
   </button>,
-  <div>
-    3
-  </div>,
-  3,
+  Efect,
+  Efect,
 ]
 `;
 
@@ -41,23 +33,17 @@ NodeList [
   <button
     id="click"
   >
-    4
+    Click
   </button>,
-  <div>
-    4
-  </div>,
-  4,
+  Click,
+  Click,
 ]
 `;
 
 exports[`useEffect 1`] = `
 NodeList [
-  <div>
-    4
-  </div>,
-  <div>
-    4
-  </div>,
-  4,
+  Effect,
+  Effect,
+  Effect,
 ]
 `;

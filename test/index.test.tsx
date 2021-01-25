@@ -18,15 +18,15 @@ afterEach(() => {
 it('initData undefined', () => {
   const Component01 = () => {
     const [value] = useGlobalState('Key1');
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component02 = () => {
     const [value] = useGlobalState('Key1');
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component03 = () => {
     const [value] = useGlobalState('Key1');
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
 
   act(() => {
@@ -45,16 +45,16 @@ it('initData undefined', () => {
 it('initData', () => {
   const Component01 = () => {
     const [value] = useGlobalState('Key1');
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component02 = () => {
     //first initData
     const [value] = useGlobalState('Key1', 1);
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component03 = () => {
     const [value] = useGlobalState('Key1', 2);
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
 
   act(() => {
@@ -73,22 +73,22 @@ it('initData', () => {
 it('useEffect', () => {
   const Component01 = () => {
     const [value] = useGlobalState('Key1');
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component02 = () => {
     const [value, setValue] = useGlobalState('Key1', 1);
     useEffect(() => {
       setValue(3);
     }, []);
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component03 = () => {
-    const [value, setValue] = useGlobalState('Key1', 2);
+    const [value, setValue] = useGlobalState<unknown>('Key1', 2);
     useEffect(() => {
       //Last setValue
-      setValue(4);
+      setValue('Effect');
     }, []);
-    return <>{value || 'undefined'}</>;
+    return <>{value ?? 'undefined'}</>;
   };
 
   act(() => {
@@ -111,7 +111,7 @@ it('onclick', () => {
       <button
         id="click"
         onClick={() => {
-          setValue(4);
+          setValue('Click');
         }}
       >
         {value}
@@ -119,15 +119,15 @@ it('onclick', () => {
     );
   };
   const Component02 = () => {
-    const [value, setValue] = useGlobalState('Key1', 1);
+    const [value, setValue] = useGlobalState<unknown>('Key1', 1);
     useEffect(() => {
-      setValue(3);
+      setValue('Efect');
     }, []);
-    return <div>{value}</div>;
+    return <>{value ?? 'undefined'}</>;
   };
   const Component03 = () => {
     const [value] = useGlobalState('Key1', 2);
-    return <>{value || 'undefined'}</>;
+    return <>{value ?? 'undefined'}</>;
   };
 
   act(() => {
