@@ -49,3 +49,11 @@ export const InputBox = ({ name }: Props) => {
   );
 };
 ```
+
+- `reset`
+
+```tsx
+import { reset } from '@react-liblary/use-global-state';
+
+reset(); //Clear cache
+```
