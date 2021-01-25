@@ -114,7 +114,7 @@ it('onclick', () => {
           setValue('Click');
         }}
       >
-        {value}
+        <>{value ?? 'undefined'}</>
       </button>
     );
   };
