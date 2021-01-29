@@ -1,8 +1,11 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 type Render<T = unknown> = Dispatch<SetStateAction<T | undefined>>;
 const renderMap = new Map<string, Set<Render>>();
 const initialKyes = new Set<string>();
-const cache: { [key: string]: unknown } = {};
+export const cache: { [key: string]: unknown } = {};
+
+const NormalizeKey = (keys: string | string[]) =>
+  (Array.isArray(keys) ? keys : [keys]).reduce((a, b) => `${a}[${b}]`, '');
 
 export const reset = () => {
   renderMap.clear();
@@ -10,12 +13,25 @@ export const reset = () => {
   Object.keys(cache).forEach((key) => delete cache[key]);
 };
 
-export const query = <T = unknown>(key: string) => cache[key] as T;
+export const getCache = <T = unknown>(keys: string | string[]) => {
+  const key = NormalizeKey(keys);
+  const result: { [key: string]: T } = {};
+  Object.entries(cache)
+    .filter(([k]) => k.indexOf(key) === 0)
+    .forEach(([key, value]) => (result[key] = value as T));
+  return result;
+};
+export const setCache = <T = unknown>(src: { [key: string]: T }) => {
+  Object.entries(src).forEach(([key, value]) => (cache[key] = value as T));
+};
+
+export const query = <T = unknown>(keys: string | string[]) => cache[NormalizeKey(keys)] as T;
 
 export const mutate = <T = Object>(
-  key?: string,
+  keys?: string | string[],
   data?: T | Promise<T> | ((data: T) => T | Promise<T>)
 ) => {
+  const key = keys && NormalizeKey(keys);
   if (key) {
     if (data !== undefined) {
       const value =
@@ -37,12 +53,16 @@ export const mutate = <T = Object>(
   }
 };
 
-export const useGlobalState = <T = unknown>(key: string, initialData?: T | (() => T)) => {
+export const useGlobalState = <T = unknown>(
+  keys: string | string[],
+  initialData?: T | (() => T)
+) => {
   type RenderMap = Map<string, Set<Render<T>>>;
+  const key = useMemo(() => NormalizeKey(keys), Array.isArray(keys) ? keys : [keys]);
   const [state, render] = useState<T | undefined>((cache[key] as T) || initialData);
   const dispatch = useCallback(
     (data?: T | ((data: T) => T)) => {
-      mutate(key, data);
+      mutate(keys, data);
     },
     [key]
   );
